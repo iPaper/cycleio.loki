@@ -182,7 +182,7 @@
         "origin": {
           "type": "docker-hub",
           "details": {
-            "target": "minio/minio"
+            "target": "minio/minio:latest"
           }
         }
       },
