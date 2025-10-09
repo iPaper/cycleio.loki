@@ -37,7 +37,7 @@
       "name": "read",
       "image": {
         "origin": {
-          "type": "docker-hub",
+          "type": "docker-file",
           "details": {
             "context_dir": "/loki",
             "build_file": "/loki/Dockerfile"
@@ -87,7 +87,7 @@
       "name": "write",
       "image": {
         "origin": {
-          "type": "docker-hub",
+          "type": "docker-file",
           "details": {
             "context_dir": "/loki",
             "build_file": "/loki/Dockerfile"
@@ -263,7 +263,7 @@
       "name": "backend",
       "image": {
         "origin": {
-          "type": "docker-hub",
+          "type": "docker-file",
           "details": {
             "context_dir": "/loki",
             "build_file": "/loki/Dockerfile"
