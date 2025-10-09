@@ -340,7 +340,7 @@
         "origin": {
           "type": "docker-hub",
           "details": {
-            "target": "mingrammer/flog"
+            "target": "mingrammer/flog:latest"
           }
         }
       },
