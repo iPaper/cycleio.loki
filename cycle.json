@@ -255,8 +255,8 @@
         },
         "runtime": {
           "command": {
-            "path": "-config.file=/etc/loki/config.yaml",
-            "args": "-target=backend -legacy-read-mode=false"
+            "path": "/usr/bin/loki",
+            "args": "-config.file=/etc/loki/config.yaml -target=backend -legacy-read-mode=false"
           }
         }
       },
