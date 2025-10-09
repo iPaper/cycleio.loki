@@ -270,16 +270,7 @@
           }
         }
       },
-      "stateful": true,
-      "volumes": [
-        {
-          "destination": "/etc/loki/config.yaml",
-          "read_only": false,
-          "local": {
-            "max_size": "5GB"
-          }
-        }
-      ]
+      "stateful": true
     },
     "gateway": {
       "config": {
