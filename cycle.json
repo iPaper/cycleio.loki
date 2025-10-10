@@ -148,8 +148,8 @@
         },
         "runtime": {
           "command": {
-            "path": "sh",
-            "args": "-euc mkdir -p /data/loki-data && \\\nmkdir -p /data/loki-ruler && \\\nminio server /data\n"
+            "path": "/usr/bin/minio",
+            "args": "server /data"
           },
           "environment_vars": {
             "MINIO_ROOT_USER": "loki",
