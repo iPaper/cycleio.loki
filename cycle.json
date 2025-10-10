@@ -202,7 +202,7 @@
         "runtime": {
           "command": {
             "path": "sh",
-            "args": "-euc mkdir -p /etc/grafana/provisioning/datasources\ncat <<EOF > /etc/grafana/provisioning/datasources/ds.yaml\napiVersion: 1\ndatasources:\n  - name: Loki\n    type: loki\n    access: proxy\n    url: http://gateway:3100\n    jsonData:\n      httpHeaderName1: \"X-Scope-OrgID\"\n    secureJsonData:\n      httpHeaderValue1: \"iPaper\"\nEOF\n/run.sh\n"
+            "args": "/run.sh"
           },
           "environment_vars": {
             "GF_PATHS_PROVISIONING": "/etc/grafana/provisioning",
@@ -214,9 +214,10 @@
       "name": "grafana",
       "image": {
         "origin": {
-          "type": "docker-hub",
+          "type": "docker-file",
           "details": {
-            "target": "grafana/grafana:latest"
+            "context_dir": "/grafana",
+            "build_file": "/grafana/Dockerfile"
           }
         }
       },
