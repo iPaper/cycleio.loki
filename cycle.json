@@ -273,6 +273,12 @@
             "restart": true,
             "delay": "0s"
           }
+        },
+        "runtime": {
+          "command": {
+            "path": "sh",
+            "args": "/docker-entrypoint.sh nginx -g \"daemon off;\""
+          }
         }
       },
       "name": "gateway",
