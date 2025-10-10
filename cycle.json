@@ -29,8 +29,8 @@
         },
         "runtime": {
           "command": {
-            "path": "-config.file=/etc/loki/config.yaml",
-            "args": "-target=read"
+            "path": "/usr/bin/loki",
+            "args": "-config.file=/etc/loki/config.yaml -target=read"
           }
         }
       },
@@ -44,16 +44,7 @@
           }
         }
       },
-      "stateful": true,
-      "volumes": [
-        {
-          "destination": "/etc/loki/config.yaml",
-          "read_only": false,
-          "local": {
-            "max_size": "5GB"
-          }
-        }
-      ]
+      "stateful": true
     },
     "write": {
       "config": {
@@ -79,8 +70,8 @@
         },
         "runtime": {
           "command": {
-            "path": "-config.file=/etc/loki/config.yaml",
-            "args": "-target=write"
+            "path": "/usr/bin/loki",
+            "args": "-config.file=/etc/loki/config.yaml -target=write"
           }
         }
       },
@@ -94,16 +85,7 @@
           }
         }
       },
-      "stateful": true,
-      "volumes": [
-        {
-          "destination": "/etc/loki/config.yaml",
-          "read_only": false,
-          "local": {
-            "max_size": "5GB"
-          }
-        }
-      ]
+      "stateful": true
     },
     "alloy": {
       "config": {
