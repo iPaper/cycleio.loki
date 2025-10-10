@@ -273,20 +273,15 @@
             "restart": true,
             "delay": "0s"
           }
-        },
-        "runtime": {
-          "command": {
-            "path": "sh",
-            "args": "-euc cat <<EOF > /etc/nginx/nginx.conf\nuser  nginx;\nworker_processes  5;  ## Default: 1\n\nevents {\n  worker_connections   1000;\n}\n\nhttp {\n  resolver 127.0.0.11;\n\n  server {\n    listen             3100;\n\n    location = / {\n      return 200 'OK';\n      auth_basic off;\n    }\n\n    location = /api/prom/push {\n      proxy_pass       http://write:3100\\$$request_uri;\n    }\n\n    location = /api/prom/tail {\n      proxy_pass       http://read:3100\\$$request_uri;\n      proxy_set_header Upgrade \\$$http_upgrade;\n      proxy_set_header Connection \"upgrade\";\n    }\n\n    location ~ /api/prom/.* {\n      proxy_pass       http://read:3100\\$$request_uri;\n    }\n\n    location = /loki/api/v1/push {\n      proxy_pass       http://write:3100\\$$request_uri;\n    }\n\n    location = /loki/api/v1/tail {\n      proxy_pass       http://read:3100\\$$request_uri;\n      proxy_set_header Upgrade \\$$http_upgrade;\n      proxy_set_header Connection \"upgrade\";\n    }\n\n    location ~ /loki/api/.* {\n      proxy_pass       http://read:3100\\$$request_uri;\n    }\n  }\n}\nEOF\n/docker-entrypoint.sh nginx -g \"daemon off;\"\n"
-          }
         }
       },
       "name": "gateway",
       "image": {
         "origin": {
-          "type": "docker-hub",
+          "type": "docker-file",
           "details": {
-            "target": "nginx:latest"
+            "context_dir": "/nginx",
+            "build_file": "/nginx/Dockerfile"
           }
         }
       },
