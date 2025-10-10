@@ -43,3 +43,9 @@ ruler:
 
 compactor:
   working_directory: /tmp/compactor
+
+query_scheduler:
+  use_scheduler_ring: false
+
+querier:
+  max_concurrent: 4
