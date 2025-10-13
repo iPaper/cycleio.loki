@@ -13,7 +13,6 @@ schema_config:
         prefix: index_
         period: 24h
 common:
-  path_prefix: /loki
   replication_factor: 1
   storage:
     s3:
@@ -28,6 +27,7 @@ common:
       store: inmemory
     instance_addr: 127.0.0.1
 ruler:
+  type: s3
   storage:
     s3:
       bucketnames: loki-ruler

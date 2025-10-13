@@ -240,7 +240,7 @@
         "runtime": {
           "command": {
             "path": "/usr/bin/loki",
-            "args": "-config.file=/etc/loki/config.yaml -target=backend -legacy-read-mode=false"
+            "args": "-config.file=/etc/loki/config.yaml -target=all -legacy-read-mode=false"
           }
         }
       },
