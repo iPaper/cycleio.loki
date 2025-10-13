@@ -185,7 +185,8 @@
           "public": "enable",
           "hostname": "grafana",
           "ports": [
-            "3000:3000"
+            "3000:3000",
+            "443:3000"
           ]
         },
         "deploy": {
@@ -261,7 +262,8 @@
           "public": "enable",
           "hostname": "gateway",
           "ports": [
-            "3100:3100"
+            "3100:3100",
+            "443:3100"
           ]
         },
         "deploy": {
