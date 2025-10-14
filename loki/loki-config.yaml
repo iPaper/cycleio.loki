@@ -28,10 +28,10 @@ common:
       store: inmemory
     instance_addr: 127.0.0.1
 
-  compactor:
-    working_directory: /tmp/compactor
-    shared_store: s3
-    compaction_interval: 10m
+compactor:
+  working_directory: /tmp/compactor
+  shared_store: s3
+  compaction_interval: 10m
 
 query_scheduler:
   use_scheduler_ring: false
