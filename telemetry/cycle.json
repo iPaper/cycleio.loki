@@ -1,0 +1,139 @@
+{
+  "version": "1.0",
+  "about": {
+    "description": "Generated from a docker compose file for use on Cycle.io.",
+    "version": ""
+  },
+  "containers": {
+    "minio": {
+      "config": {
+        "network": {
+          "public": "enable",
+          "hostname": "minio",
+          "ports": [
+            "9000"
+          ]
+        },
+        "deploy": {
+          "instances": 1,
+          "health_check": {
+            "command": "curl -f http://localhost:9000/minio/health/live",
+            "retries": 5,
+            "interval": "15s",
+            "timeout": "20s",
+            "restart": true,
+            "delay": "0s"
+          }
+        },
+        "runtime": {
+          "command": {
+            "path": "/usr/bin/minio",
+            "args": "server /data"
+          },
+          "environment_vars": {
+            "MINIO_ROOT_USER": "loki",
+            "MINIO_ROOT_PASSWORD": "supersecret",
+            "MINIO_PROMETHEUS_AUTH_TYPE": "public",
+            "MINIO_UPDATE": "off"
+          }
+        }
+      },
+      "name": "minio",
+      "image": {
+        "origin": {
+          "type": "docker-hub",
+          "details": {
+            "target": "minio/minio:latest"
+          }
+        }
+      },
+      "stateful": true,
+      "volumes": [
+        {
+          "destination": "/data",
+          "read_only": false,
+          "local": {
+            "max_size": "5GB"
+          }
+        }
+      ]
+    },
+    "grafana-dashboard": {
+      "config": {
+        "network": {
+          "public": "enable",
+          "hostname": "grafana-dashboard",
+          "ports": [
+            "3000:3000",
+            "443:3000"
+          ]
+        },
+        "deploy": {
+          "instances": 1,
+          "health_check": {
+            "command": "\"wget --no-verbose --tries=1 --spider http://localhost:3000/api/health || exit 1\"",
+            "retries": 5,
+            "interval": "10s",
+            "timeout": "5s",
+            "restart": true,
+            "delay": "0s"
+          }
+        },
+        "runtime": {
+          "command": {
+            "path": "sh",
+            "args": "/run.sh"
+          },
+          "environment_vars": {
+            "GF_PATHS_PROVISIONING": "/etc/grafana/provisioning",
+            "GF_AUTH_ANONYMOUS_ENABLED": "true",
+            "GF_AUTH_ANONYMOUS_ORG_ROLE": "Admin"
+          }
+        }
+      },
+      "name": "grafana-dashboard",
+      "image": {
+        "origin": {
+          "type": "docker-file",
+          "details": {
+            "context_dir": "/grafana-dashboard",
+            "build_file": "/grafana-dashboard/Dockerfile"
+          }
+        }
+      },
+      "stateful": false
+    },
+    "grafana-loki": {
+      "config": {
+        "network": {
+          "public": "enable",
+          "hostname": "grafana-loki",
+          "ports": [
+            "3100:3100",
+            "7946:7946"
+          ]
+        },
+        "deploy": {
+          "instances": 1
+        },
+        "runtime": {
+          "command": {
+            "path": "/usr/bin/loki",
+            "args": "-config.file=/etc/loki/config.yaml -target=all -legacy-read-mode=false"
+          }
+        }
+      },
+      "name": "grafana-loki",
+      "image": {
+        "origin": {
+          "type": "docker-file",
+          "details": {
+            "context_dir": "/grafana-loki",
+            "build_file": "/grafana-loki/Dockerfile"
+          }
+        }
+      },
+      "stateful": true
+    }
+  }
+}
