@@ -1,0 +1,27 @@
+logging {
+	level = "info"
+}
+
+// Read logs from file that captures flog stdout
+local.file_match "flog_output" {
+    path_targets = [{"__path__" = "/tmp/flog.log", "__stream__" = "flog"}]
+    sync_period = "5s"
+}
+
+loki.source.file "log_scrape" {
+  targets    = local.file_match.flog_output.targets
+  forward_to = [loki.write.grafana_loki.receiver]
+  tail_from_end = false
+}
+
+loki.write "grafana_loki" {
+  endpoint {
+    url = "http://localhost:3100/loki/api/v1/push"
+    tenant_id = "iPaper"
+    
+    // basic_auth {
+    //  username = "admin"
+    //  password = "admin"
+    // }
+  }
+}
