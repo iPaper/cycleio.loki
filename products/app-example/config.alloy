@@ -16,7 +16,7 @@ loki.source.file "log_scrape" {
 
 loki.write "grafana_loki" {
   endpoint {
-    url = "http://grafana-loki:3100/loki/api/v1/push"
+    url = "http://grafana-loki.pocpoc:3100/loki/api/v1/push"
     tenant_id = "iPaper"
 
     // basic_auth {
