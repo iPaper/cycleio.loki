@@ -96,8 +96,8 @@
         "origin": {
           "type": "docker-file",
           "details": {
-            "context_dir": "/grafana-dashboard",
-            "build_file": "/grafana-dashboard/Dockerfile"
+            "context_dir": "/telemetry/grafana-dashboard",
+            "build_file": "/telemetry/grafana-dashboard/Dockerfile"
           }
         }
       },
@@ -128,8 +128,8 @@
         "origin": {
           "type": "docker-file",
           "details": {
-            "context_dir": "/grafana-loki",
-            "build_file": "/grafana-loki/Dockerfile"
+            "context_dir": "/telemetry/grafana-loki",
+            "build_file": "/telemetry/grafana-loki/Dockerfile"
           }
         }
       },
