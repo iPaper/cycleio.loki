@@ -106,7 +106,7 @@
     "grafana-loki": {
       "config": {
         "network": {
-          "public": "enable",
+          "public": "egress-only",
           "hostname": "grafana-loki",
           "ports": [
             "3100:3100",
@@ -133,7 +133,7 @@
           }
         }
       },
-      "stateful": true
+      "stateful": false
     }
   }
 }
