@@ -19,30 +19,22 @@
         },
         "runtime": {
           "command": {
-            "path": "run",
-            "args": "--server.http.listen-addr=0.0.0.0:12345 --storage.path=/var/lib/alloy/data /etc/alloy/config.alloy"
+            "path": "sh",
+            "args": "/entrypoint.sh"
           }
         }
       },
       "name": "alloy",
       "image": {
         "origin": {
-          "type": "docker-hub",
+          "type": "docker-file",
           "details": {
-            "target": "grafana/alloy:latest"
+            "context_dir": "/alloy",
+            "build_file": "/alloy/Dockerfile"
           }
         }
       },
-      "stateful": true,
-      "volumes": [
-        {
-          "destination": "/etc/alloy/config.alloy",
-          "read_only": true,
-          "local": {
-            "max_size": "5GB"
-          }
-        }
-      ]
+      "stateful": true
     },
     "minio": {
       "config": {
