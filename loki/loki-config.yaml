@@ -30,8 +30,6 @@ common:
 
 compactor:
   working_directory: /tmp/compactor
-  shared_store: s3
-  compaction_interval: 10m
 
 query_scheduler:
   use_scheduler_ring: false
