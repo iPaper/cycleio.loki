@@ -1,11 +1,13 @@
 FROM grafana/alloy:latest
 
 # Install flog log generator
-RUN apk add --no-cache curl && \
+USER root
+RUN apt-get update && apt-get install -y curl && \
     curl -L https://github.com/mingrammer/flog/releases/download/v0.4.3/flog_0.4.3_linux_amd64.tar.gz -o /tmp/flog.tar.gz && \
     tar -xzf /tmp/flog.tar.gz -C /usr/local/bin && \
     chmod +x /usr/local/bin/flog && \
-    rm /tmp/flog.tar.gz
+    rm /tmp/flog.tar.gz && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY ./config.alloy /etc/alloy/config.alloy
 
