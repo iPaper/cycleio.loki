@@ -13,7 +13,7 @@ schema_config:
         prefix: index_
         period: 24h
 common:
-  path_prefix: /
+  path_prefix: /loki
   replication_factor: 1
   storage:
     s3:
@@ -27,13 +27,11 @@ common:
     kvstore:
       store: inmemory
     instance_addr: 127.0.0.1
-ruler:
-  storage:
-    s3:
-      bucketnames: loki-ruler
 
-compactor:
-  working_directory: /tmp/compactor
+  compactor:
+    working_directory: /tmp/compactor
+    shared_store: s3
+    compaction_interval: 10m
 
 query_scheduler:
   use_scheduler_ring: false
