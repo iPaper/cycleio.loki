@@ -3,7 +3,7 @@ datasources:
   - name: Loki
     type: loki
     access: proxy
-    url: http://backend:3100
+    url: http://grafana-loki:3100
     jsonData:
       httpHeaderName1: "X-Scope-OrgID"
     secureJsonData:
