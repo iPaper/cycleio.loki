@@ -13,7 +13,7 @@ RUN apt update && apt install -y curl ca-certificates && \
 
 # Install Grafana Alloy (observability sidecar)
 RUN ARCH=$(dpkg --print-architecture) && \
-    curl -L -o /tmp/alloy.deb "https://github.com/grafana/alloy/releases/download/v1.4.3/alloy_1.4.3-1_${ARCH}.deb" && \
+    curl -L -o /tmp/alloy.deb "https://github.com/grafana/alloy/releases/download/v1.11.2/alloy-1.11.2-1.${ARCH}.deb" && \
     dpkg -i /tmp/alloy.deb && \
     rm /tmp/alloy.deb && \
     apt clean && rm -rf /var/lib/apt/lists/*
