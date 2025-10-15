@@ -25,3 +25,17 @@ loki.write "grafana_loki" {
     // }
   }
 }
+
+prometheus.exporter.self "self_metrics" {
+}
+
+prometheus.scrape "self_scrape" {
+  targets    = prometheus.exporter.self.self_metrics.targets
+  forward_to = [prometheus.remote_write.mimir.receiver]
+}
+
+prometheus.remote_write "mimir" {
+  endpoint {
+    url = "http://grafana-mimir.pocpoc:9009/api/v1/push"
+  }
+}

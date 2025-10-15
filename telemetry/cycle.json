@@ -149,8 +149,8 @@
         },
         "runtime": {
           "command": {
-            "path": "/usr/bin/mimir",
-            "args": "-config.file=/etc/mimir/config.yaml -target=all -legacy-read-mode=false"
+            "path": "/bin/mimir",
+            "args": "-config.file=/etc/mimir/config.yaml"
           }
         }
       },
