@@ -41,12 +41,6 @@ prometheus.relabel "custom_labels" {
 
     rule {
         action       = "replace"
-        target_label = "os"
-        replacement  = constants.os
-    }
-
-    rule {
-        action       = "replace"
         target_label = "cycle_environment_id"
         replacement  = env("CYCLE_ENVIRONMENT_ID")
     }
@@ -61,6 +55,22 @@ prometheus.relabel "custom_labels" {
         action       = "replace"
         target_label = "cycle_container_id"
         replacement  = env("CYCLE_CONTAINER_IDENTIFIER")
+    }
+
+    rule {
+        action       = "replace"
+        target_label = "cycle_provider_location"
+        replacement  = env("CYCLE_PROVIDER_LOCATION")
+    }
+
+    rule {
+      action = "labeldrop"
+      regex  = "instance"
+    }
+
+    rule {
+      action = "labeldrop"
+      regex  = "job"
     }
 }
 
