@@ -31,7 +31,37 @@ prometheus.exporter.self "self_metrics" {
 
 prometheus.scrape "self_scrape" {
   targets    = prometheus.exporter.self.self_metrics.targets
-  forward_to = [prometheus.remote_write.mimir.receiver]
+  forward_to = [prometheus.relabel.custom_labels.receiver]
+}
+
+prometheus.relabel "custom_labels" {
+    forward_to = [
+        prometheus.remote_write.mimir.receiver,
+    ]
+
+    rule {
+        action       = "replace"
+        target_label = "os"
+        replacement  = constants.os
+    }
+
+    rule {
+        action       = "replace"
+        target_label = "cycle_environment_id"
+        replacement  = env("CYCLE_ENVIRONMENT_ID")
+    }
+
+    rule {
+        action       = "replace"
+        target_label = "cycle_instance_id"
+        replacement  = env("CYCLE_INSTANCE_ID")
+    }
+
+    rule {
+        action       = "replace"
+        target_label = "cycle_container_id"
+        replacement  = env("CYCLE_CONTAINER_IDENTIFIER")
+    }
 }
 
 prometheus.remote_write "mimir" {
