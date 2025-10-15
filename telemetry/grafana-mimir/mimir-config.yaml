@@ -10,18 +10,12 @@ blocks_storage:
     dir: /tmp/mimir/tsdb
 
 common:
-  path_prefix: /mimir
-  replication_factor: 1
   storage:
     s3:
       endpoint: minio:9000
       insecure: true
       access_key_id: loki
       secret_access_key: supersecret
-  ring:
-    kvstore:
-      store: inmemory
-    instance_addr: 127.0.0.1
 
 compactor:
   data_dir: /tmp/mimir/compactor
