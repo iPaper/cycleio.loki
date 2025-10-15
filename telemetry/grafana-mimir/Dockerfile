@@ -1,4 +1,4 @@
-FROM grafana/loki:latest
+FROM grafana/mimir:latest
 
-COPY ./loki-config.yaml /etc/loki/config.yaml
+COPY ./mimir-config.yaml /etc/mimir/config.yaml
 
