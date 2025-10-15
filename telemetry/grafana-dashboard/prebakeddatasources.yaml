@@ -8,3 +8,7 @@ datasources:
       httpHeaderName1: "X-Scope-OrgID"
     secureJsonData:
       httpHeaderValue1: "iPaper"
+  - name: Mimir
+    type: prometheus
+    access: proxy
+    url: http://grafana-mimir:9009
