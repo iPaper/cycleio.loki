@@ -34,7 +34,7 @@
           }
         }
       },
-      "stateful": true
+      "stateful": false
     }
   }
 }

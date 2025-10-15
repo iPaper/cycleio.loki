@@ -11,4 +11,4 @@ datasources:
   - name: Mimir
     type: prometheus
     access: proxy
-    url: http://grafana-mimir:9009
+    url: http://grafana-mimir:9009/prometheus
