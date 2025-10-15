@@ -134,6 +134,37 @@
         }
       },
       "stateful": false
+    },
+    "grafana-mimir": {
+      "config": {
+        "network": {
+          "public": "egress-only",
+          "hostname": "grafana-mimir",
+          "ports": [
+            "9009:9009"
+          ]
+        },
+        "deploy": {
+          "instances": 1
+        },
+        "runtime": {
+          "command": {
+            "path": "/usr/bin/mimir",
+            "args": "-config.file=/etc/mimir/config.yaml -target=all -legacy-read-mode=false"
+          }
+        }
+      },
+      "name": "grafana-mimir",
+      "image": {
+        "origin": {
+          "type": "docker-file",
+          "details": {
+            "context_dir": "/telemetry/grafana-mimir",
+            "build_file": "/telemetry/grafana-mimir/Dockerfile"
+          }
+        }
+      },
+      "stateful": false
     }
   }
 }
