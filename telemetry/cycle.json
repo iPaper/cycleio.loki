@@ -41,9 +41,10 @@
       "name": "minio",
       "image": {
         "origin": {
-          "type": "docker-hub",
+          "type": "docker-file",
           "details": {
-            "target": "minio/minio:latest"
+            "context_dir": "/telemetry/minio",
+            "build_file": "/telemetry/minio/Dockerfile"
           }
         }
       },
