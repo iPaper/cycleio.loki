@@ -4,6 +4,7 @@ FROM minio/minio:latest
 RUN echo '' > /entrypoint.sh && \
     echo $'#!/bin/bash\n\
 setupBuckets () {\n\
+sleep 30; # Wait for MinIO to be fully up and running\n\
 # Setup MinIO CLI alias\n\
 mc alias set local http://localhost:9000 loki supersecret;\n\
 # Create MinIO buckets\n\
