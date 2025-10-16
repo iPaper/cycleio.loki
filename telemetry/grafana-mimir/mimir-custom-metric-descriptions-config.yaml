@@ -1,0 +1,7 @@
+metric_metadata:
+  - metric: node_memory_MemTotal_bytes
+    help: "Total available memory in bytes for the Linux host."
+    type: gauge
+  - metric: node_memory_MemFree_bytes
+    help: "Available free memory in bytes on the Linux host."
+    type: gauge
