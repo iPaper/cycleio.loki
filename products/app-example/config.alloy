@@ -58,8 +58,8 @@ otelcol.processor.transform "add_descriptions" {
   metric_statements {
     context = "metric"
     statements = [
-      `set(metric.description, "Total available memory in bytes for the Linux host.") where name == "node_memory_MemTotal_bytes"`,
-      `set(metric.description, "Available free memory in bytes on the Linux host.") where name == "node_memory_MemFree_bytes"`,
+      `set(metric.description, "Total available memory in bytes for the Linux host.") where metric.name == "node_memory_MemTotal_bytes"`,
+      `set(metric.description, "Available free memory in bytes on the Linux host.") where metric.name == "node_memory_MemFree_bytes"`,
     ]
   }
 
