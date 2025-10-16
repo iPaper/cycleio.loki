@@ -39,6 +39,7 @@
         }
       },
       "name": "minio",
+      "lock": true,
       "image": {
         "origin": {
           "type": "docker-file",
@@ -93,6 +94,7 @@
         }
       },
       "name": "grafana-dashboard",
+      "lock": true,
       "image": {
         "origin": {
           "type": "docker-file",
@@ -125,6 +127,7 @@
         }
       },
       "name": "grafana-loki",
+      "lock": false,
       "image": {
         "origin": {
           "type": "docker-file",
@@ -156,6 +159,7 @@
         }
       },
       "name": "grafana-mimir",
+      "lock": false,
       "image": {
         "origin": {
           "type": "docker-file",
