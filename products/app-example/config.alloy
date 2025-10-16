@@ -34,6 +34,16 @@ prometheus.scrape "self_scrape" {
   forward_to = [prometheus.relabel.custom_labels.receiver]
 }
 
+prometheus.exporter.unix "linux_exporter" {
+  disable_collectors = [] // Enable only default unix collectors
+  enable_collectors = [] // Enable only default unix collectors
+}
+
+prometheus.scrape "linux_exporter_scrape" {
+  targets    = prometheus.exporter.unix.linux_exporter.targets
+  forward_to = [prometheus.relabel.custom_labels.receiver]
+}
+
 prometheus.relabel "custom_labels" {
     forward_to = [
         prometheus.remote_write.mimir.receiver,
@@ -64,6 +74,22 @@ prometheus.relabel "custom_labels" {
     }
 
     rule {
+      # Match the source metric name
+      source_labels = ["__name__"]
+      regex = "node_memory_MemTotal_bytes"
+      # Rename the metric to something more descriptive
+      target_label = "__name__"
+      replacement = "iPaper - The total bytes of memory available to the container."
+    }
+    
+    rule {
+      source_labels = ["__name__"]
+      regex = "node_memory_MemFree_bytes"
+      target_label = "__name__"
+      replacement = "iPaper - The total bytes of memory available to the container."
+    }
+
+    rule {
       action = "labeldrop"
       regex  = "instance"
     }
@@ -72,30 +98,6 @@ prometheus.relabel "custom_labels" {
       action = "labeldrop"
       regex  = "job"
     }
-}
-
-prometheus.exporter.unix "linux_exporter" {
-  disable_collectors = ["arp", "bcache", "bonding", "boottime", "btrfs", "conntrack", "ipvs", "btrfs", "infiniband", "xfs", "zfs"]
-  enable_collectors = ["meminfo", "cpu", "diskstats", "filesystem"]
-
-  filesystem {
-    fs_types_exclude     = "^(autofs|binfmt_misc|bpf|cgroup2?|configfs|debugfs|devpts|devtmpfs|tmpfs|fusectl|hugetlbfs|iso9660|mqueue|nsfs|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|selinuxfs|squashfs|sysfs|tracefs)$"
-    mount_points_exclude = "^/(dev|proc|run/credentials/.+|sys|var/lib/docker/.+)($|/)"
-    mount_timeout        = "5s"
-  }
-
-  netclass {
-    ignored_devices = "^(veth.*|cali.*|[a-f0-9]{15})$"
-  }
-
-  netdev {
-    device_exclude = "^(veth.*|cali.*|[a-f0-9]{15})$"
-  }
-}
-
-prometheus.scrape "linux_exporter_scrape" {
-  targets    = prometheus.exporter.unix.linux_exporter.targets
-  forward_to = [prometheus.remote_write.mimir.receiver]
 }
 
 prometheus.remote_write "mimir" {
