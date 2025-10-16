@@ -27,8 +27,8 @@
         },
         "runtime": {
           "command": {
-            "path": "/usr/bin/minio",
-            "args": "server /data"
+            "path": "sh",
+            "args": "/entrypoint.sh"
           },
           "environment_vars": {
             "MINIO_ROOT_USER": "loki",
