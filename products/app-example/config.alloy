@@ -86,6 +86,21 @@ prometheus.relabel "custom_labels" {
       action = "labeldrop"
       regex  = "job"
     }
+
+    // Custom metric descriptions
+    rule {
+        source_labels = ["__name__"]
+        regex = "node_memory_MemTotal_bytes"
+        target_label = "__help__"
+        replacement = "Total available memory in bytes for the Linux host."
+    }
+
+    rule {
+        source_labels = ["__name__"]
+        regex = "node_memory_MemFree_bytes"
+        target_label = "__help__"
+        replacement = "Available free memory in bytes on the Linux host."
+    }
 }
 
 prometheus.remote_write "mimir" {
