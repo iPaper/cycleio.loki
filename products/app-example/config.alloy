@@ -41,6 +41,35 @@ prometheus.exporter.unix "linux_exporter" {
 
 prometheus.scrape "linux_exporter_scrape" {
   targets    = prometheus.exporter.unix.linux_exporter.targets
+  forward_to = [otelcol.receiver.prometheus.linux_metrics.receiver]
+}
+
+// Convert Prometheus metrics to OTEL format so we can modify descriptions
+otelcol.receiver.prometheus "linux_metrics" {
+  output {
+    metrics = [otelcol.processor.transform.add_descriptions.input]
+  }
+}
+
+// Transform metric descriptions
+otelcol.processor.transform "add_descriptions" {
+  error_mode = "ignore"
+
+  metric_statements {
+    context = "metric"
+    statements = [
+      `set(description, "Total available memory in bytes for the Linux host.") where name == "node_memory_MemTotal_bytes"`,
+      `set(description, "Available free memory in bytes on the Linux host.") where name == "node_memory_MemFree_bytes"`,
+    ]
+  }
+
+  output {
+    metrics = [otelcol.exporter.prometheus.back_to_prometheus.input]
+  }
+}
+
+// Convert back to Prometheus format
+otelcol.exporter.prometheus "back_to_prometheus" {
   forward_to = [prometheus.relabel.custom_labels.receiver]
 }
 
@@ -85,21 +114,6 @@ prometheus.relabel "custom_labels" {
     rule {
       action = "labeldrop"
       regex  = "job"
-    }
-
-    // Custom metric descriptions
-    rule {
-        source_labels = ["__name__"]
-        regex = "node_memory_MemTotal_bytes"
-        target_label = "__help__"
-        replacement = "Total available memory in bytes for the Linux host."
-    }
-
-    rule {
-        source_labels = ["__name__"]
-        regex = "node_memory_MemFree_bytes"
-        target_label = "__help__"
-        replacement = "Available free memory in bytes on the Linux host."
     }
 }
 
