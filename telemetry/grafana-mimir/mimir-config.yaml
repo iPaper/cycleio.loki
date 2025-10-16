@@ -1,14 +1,5 @@
 multitenancy_enabled: false
 
-blocks_storage:
-  backend: filesystem
-  bucket_store:
-    sync_dir: /tmp/mimir/tsdb-sync
-  filesystem:
-    dir: /tmp/mimir/data/tsdb
-  tsdb:
-    dir: /tmp/mimir/tsdb
-
 common:
   storage:
     s3:
@@ -27,10 +18,13 @@ ingester:
   ring:
     replication_factor: 1
 
+blocks_storage:
+  s3:
+    bucket_name: mimir-blocks
+
 ruler_storage:
-  backend: filesystem
-  filesystem:
-    dir: /tmp/mimir/rules
+  s3:
+    bucket_name: mimir-ruler
 
 server:
   http_listen_port: 9009
