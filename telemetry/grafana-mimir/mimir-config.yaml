@@ -18,7 +18,7 @@ common:
       secret_access_key: supersecret
 
 runtime_config:
-  file_path: /etc/mimir/mimir-custom-metric-descriptions-config.yaml
+  file: /etc/mimir/mimir-custom-metric-descriptions-config.yaml
 
 compactor:
   data_dir: /tmp/mimir/compactor
