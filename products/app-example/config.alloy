@@ -41,35 +41,6 @@ prometheus.exporter.unix "linux_exporter" {
 
 prometheus.scrape "linux_exporter_scrape" {
   targets    = prometheus.exporter.unix.linux_exporter.targets
-  forward_to = [otelcol.receiver.prometheus.linux_metrics.receiver]
-}
-
-// Convert Prometheus metrics to OTEL format so we can modify descriptions
-otelcol.receiver.prometheus "linux_metrics" {
-  output {
-    metrics = [otelcol.processor.transform.add_descriptions.input]
-  }
-}
-
-// Transform metric descriptions
-otelcol.processor.transform "add_descriptions" {
-  error_mode = "ignore"
-
-  metric_statements {
-    context = "metric"
-    statements = [
-      `set(metric.description, "Total available memory in bytes for the Linux host.") where metric.name == "node_memory_MemTotal_bytes"`,
-      `set(metric.description, "Available free memory in bytes on the Linux host.") where metric.name == "node_memory_MemFree_bytes"`,
-    ]
-  }
-
-  output {
-    metrics = [otelcol.exporter.prometheus.back_to_prometheus.input]
-  }
-}
-
-// Convert back to Prometheus format
-otelcol.exporter.prometheus "back_to_prometheus" {
   forward_to = [prometheus.relabel.custom_labels.receiver]
 }
 
@@ -77,7 +48,6 @@ prometheus.relabel "custom_labels" {
     forward_to = [
         prometheus.remote_write.mimir.receiver,
     ]
-
 
     // Adding labels to all metrics for better filtering in Grafana.
     // These are sourced from environment variables that are set by our cloud provider (Cycle.io)
@@ -95,7 +65,7 @@ prometheus.relabel "custom_labels" {
 
     rule {
         action       = "replace"
-        target_label = "cycle_container_id"
+        target_label = "cycle_container_name"
         replacement  = env("CYCLE_CONTAINER_IDENTIFIER")
     }
 
