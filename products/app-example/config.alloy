@@ -76,22 +76,6 @@ prometheus.relabel "custom_labels" {
         replacement  = env("CYCLE_PROVIDER_LOCATION")
     }
 
-    // Adding descriptions to common metrics that we use at iPaper.
-    rule {
-      source_labels = ["__name__"]
-      regex = "node_memory_MemTotal_bytes"
-      target_label = "__name__"
-      replacement = "iPaper - The total bytes of memory available to the container."
-    }
-
-    rule {
-      source_labels = ["__name__"]
-      regex = "node_memory_MemFree_bytes"
-      target_label = "__name__"
-      replacement = "iPaper - The total bytes of memory available to the container."
-    }
-
-
     // Deleting default labels as we have added our own which are more descriptive.
     rule {
       action = "labeldrop"
