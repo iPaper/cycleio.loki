@@ -55,7 +55,7 @@
           "destination": "/data",
           "read_only": false,
           "local": {
-            "max_size": "5GB"
+            "max_size": "200GB"
           }
         }
       ]
@@ -137,7 +137,16 @@
           }
         }
       },
-      "stateful": true
+      "stateful": true,
+      "volumes": [
+        {
+          "destination": "/loki",
+          "read_only": false,
+          "local": {
+            "max_size": "25GB"
+          }
+        }
+      ]
     },
     "grafana-mimir": {
       "config": {
@@ -169,7 +178,16 @@
           }
         }
       },
-      "stateful": true
+      "stateful": true,
+      "volumes": [
+        {
+          "destination": "/mimir",
+          "read_only": false,
+          "local": {
+            "max_size": "25GB"
+          }
+        }
+      ]
     }
   }
 }

@@ -29,7 +29,7 @@ common:
     instance_addr: 127.0.0.1
 
 compactor:
-  working_directory: /tmp/compactor
+  working_directory: /compactor
 
 ingester:
   chunk_idle_period: 30s
