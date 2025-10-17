@@ -23,16 +23,15 @@ blocks_storage:
   backend: s3
   s3:
     bucket_name: mimir-blocks
+  tsdb:
+    dir: /tmp/mimir/tsdb
+    retention_period: 5m
+    flush_blocks_on_shutdown: true
 
 ruler_storage:
   backend: s3
   s3:
     bucket_name: mimir-ruler
-
-tsdb:
-  dir: /tmp/mimir/tsdb
-  retention_period: 5m
-  flush_blocks_on_shutdown: true
 
 server:
   http_listen_port: 9009
