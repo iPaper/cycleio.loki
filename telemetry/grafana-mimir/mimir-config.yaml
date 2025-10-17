@@ -20,10 +20,12 @@ ingester:
     replication_factor: 1
 
 blocks_storage:
+  backend: s3
   s3:
     bucket_name: mimir-blocks
 
 ruler_storage:
+  backend: s3
   s3:
     bucket_name: mimir-ruler
 
