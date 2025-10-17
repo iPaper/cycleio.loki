@@ -137,7 +137,7 @@
           }
         }
       },
-      "stateful": false
+      "stateful": true
     },
     "grafana-mimir": {
       "config": {
@@ -169,7 +169,7 @@
           }
         }
       },
-      "stateful": false
+      "stateful": true
     }
   }
 }
