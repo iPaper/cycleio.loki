@@ -29,6 +29,11 @@ ruler_storage:
   s3:
     bucket_name: mimir-ruler
 
+tsdb:
+  dir: /tmp/mimir/tsdb
+  retention_period: 5m
+  flush_blocks_on_shutdown: true
+
 server:
   http_listen_port: 9009
   log_level: error
