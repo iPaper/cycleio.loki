@@ -25,7 +25,6 @@ blocks_storage:
     bucket_name: mimir-blocks
   tsdb:
     dir: /mimir/tsdb
-    retention_period: 5m
     flush_blocks_on_shutdown: true
 
 ruler_storage:

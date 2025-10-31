@@ -31,11 +31,6 @@ common:
 compactor:
   working_directory: /compactor
 
-ingester:
-  chunk_idle_period: 30s
-  max_chunk_age: 1m
-  chunk_target_size: 524288
-
 query_scheduler:
   use_scheduler_ring: false
 
